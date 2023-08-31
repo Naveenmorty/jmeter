@@ -1,0 +1,24 @@
+name: $(BuildID)
+trigger: none
+pool: JMETER_EXECUTORS
+variables:
+  pom: $(System.DefaultWorkingDirectory)/jmeter-maven-wrapper/pom.xml
+  report: $(System.DefaultWorkingDirectory)/jmeter-maven-wrapper/target/jmeter
+jobs:
+  - job: jmeter
+    steps:
+      - task: Maven@3
+        displayName: Run JMeter tests on Azure
+        inputs:
+          mavenPomFile: $(pom)
+          javaHomeOption: 'JDKVersion'
+          jdkVersionOption: '1.8'
+          jdkArchitectureOption: 'x64'
+          publishJUnitResults: false
+          goals: 'clean verify'
+
+      - task: PublishPipelineArtifact@1
+        displayName: Archive JMETER Report
+        inputs:
+          path: $(report)
+          artifact: jmeter_report
