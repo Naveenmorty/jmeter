@@ -2,8 +2,8 @@ name: $(BuildID)
 trigger: none
 pool: Azure Pipelines
 variables:
-  pom: $(System.DefaultWorkingDirectory)/jmeter-maven-wrapper/pom.xml
-  report: $(System.DefaultWorkingDirectory)/jmeter-maven-wrapper/target/jmeter
+  pom: $(System.DefaultWorkingDirectory)/pom.xml
+  report: $(System.DefaultWorkingDirectory)/target/jmeter
 jobs:
   - job: jmeter
     steps:
